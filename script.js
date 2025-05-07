@@ -93,40 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
     loadBlogPosts();
 });
 
-// Function to switch layouts
-function switchLayout(layout) {
-    const blogGrid = document.querySelector('.blog-grid');
-    if (!blogGrid) return;
-    const layoutButtons = document.querySelectorAll('.layout-button');
-    
-    // Remove all layout classes
-    blogGrid.classList.remove('grid-layout', 'card-layout', 'list-layout');
-    blogGrid.classList.add(`${layout}-layout`);
-    
-    // Update button states
-    layoutButtons.forEach(button => {
-        button.classList.remove('active');
-        if (button.dataset.layout === layout) {
-            button.classList.add('active');
-        }
-    });
-    
-    // Save the layout preference
-    localStorage.setItem('blogLayout', layout);
-}
-
-// Add event listeners for layout buttons
-document.addEventListener('DOMContentLoaded', () => {
-    const layoutButtons = document.querySelectorAll('.layout-button');
-    layoutButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            switchLayout(button.dataset.layout);
-        });
-    });
-    
-    // Load blog posts
-    loadBlogPosts();
-});
+// Initialize blog posts when the page loads
+document.addEventListener('DOMContentLoaded', loadBlogPosts);
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
