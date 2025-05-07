@@ -1,117 +1,102 @@
 // Function to load blog posts dynamically
 async function loadBlogPosts() {
-    const blogGrid = document.querySelector('.blog-grid');
-    if (!blogGrid) return;
-
-    // List of blog posts (we need to manually specify them for GitHub Pages)
-    const blogPosts = [
-        {
-            filename: 'my-tech-journey.html',
-            title: 'My Tech Journey',
-            meta: 'Posted on May 6, 2025 - Tech',
-            excerpt: 'My journey into the world of technology began when I first started exploring programming...'
-        },
-        {
-            filename: 'life-in-japan.html',
-            title: 'Life in Japan',
-            meta: 'Posted on May 15, 2025 - Life',
-            excerpt: 'My journey in Japan has been a fascinating blend of ancient traditions and modern innovations...'
+    try {
+        const blogGrid = document.querySelector('.blog-grid');
+        if (!blogGrid) {
+            console.error('Blog grid container not found');
+            return;
         }
-    ];
 
-    // Sort posts by date (extracted from meta string)
-    blogPosts.sort((a, b) => {
-        const dateA = new Date(a.meta.split(' - ')[0]);
-        const dateB = new Date(b.meta.split(' - ')[0]);
-        return dateB - dateA; // Newest first
-    });
+        // Clear existing posts
+        blogGrid.innerHTML = '';
 
-    // Fetch and parse each blog post
-    const posts = await Promise.all(blogPosts.map(async post => {
-        // Update path for GitHub Pages
-        const response = await fetch(`/portfolio_windsurf/blog/posts/${post.filename}`);
-        const text = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, 'text/html');
-        
-        // Extract post information
-        const title = doc.querySelector('.post-info h1').textContent;
-        const meta = doc.querySelector('.post-info .meta').textContent;
-        const excerpt = doc.querySelector('.content p').textContent;
-        
-        return {
-            title,
-            meta,
-            excerpt,
-            filename
-        };
-    }));
+        // List of blog posts (we need to manually specify them for GitHub Pages)
+        const blogPosts = [
+            {
+                filename: 'my-tech-journey.html',
+                title: 'My Tech Journey',
+                meta: 'Posted on May 6, 2025 - Tech',
+                excerpt: 'My journey into the world of technology began when I first started exploring programming...',
+                imageUrl: '/portfolio_windsurf/images/tech-header.jpg'
+            },
+            {
+                filename: 'life-in-japan.html',
+                title: 'Life in Japan',
+                meta: 'Posted on May 15, 2025 - Life',
+                excerpt: 'My journey in Japan has been a fascinating blend of ancient traditions and modern innovations...',
+                imageUrl: '/portfolio_windsurf/images/japan-header.jpg'
+            }
+        ];
 
-    // Sort posts by date (assuming date is in the meta string)
-    posts.sort((a, b) => {
-        const dateA = new Date(a.meta.split(' - ')[0]);
-        const dateB = new Date(b.meta.split(' - ')[0]);
-        return dateB - dateA; // Newest first
-    });
+        // Sort posts by date (extracted from meta string)
+        blogPosts.sort((a, b) => {
+            const dateA = new Date(a.meta.split(' - ')[0]);
+            const dateB = new Date(b.meta.split(' - ')[0]);
+            return dateB - dateA; // Newest first
+        });
 
-    // Create blog post cards
-    posts.forEach(post => {
-        const postElement = document.createElement('div');
-        postElement.className = 'blog-post';
-        
-        // Try to get the header image from the blog post
-        const doc = new DOMParser().parseFromString(text, 'text/html');
-        const headerImage = doc.querySelector('.hero-image');
-        const imageUrl = headerImage ? headerImage.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, '$1') : null;
+        // Create blog post cards
+        blogPosts.forEach(post => {
+            const postElement = document.createElement('div');
+            postElement.className = 'blog-post';
 
-        // Create different layouts based on the current layout
-        const layout = localStorage.getItem('blogLayout') || 'grid';
-        
-        if (layout === 'grid') {
-            postElement.innerHTML = `
-                <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
-                    <div class="post-content">
-                        <h3>${post.title}</h3>
-                        <p class="meta">${post.meta}</p>
-                        <p class="excerpt">${post.excerpt}</p>
-                    </div>
-                </a>
-            `;
-        } else if (layout === 'card') {
-            postElement.innerHTML = `
-                <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
-                    <div class="post-image" style="background-image: url('${imageUrl}')"></div>
-                    <div class="post-content">
-                        <h3>${post.title}</h3>
-                        <p class="meta">${post.meta}</p>
-                        <p class="excerpt">${post.excerpt}</p>
-                    </div>
-                </a>
-            `;
-        } else if (layout === 'list') {
-            postElement.innerHTML = `
-                <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
-                    <div class="post-content">
-                        <div class="post-image" style="background-image: url('${imageUrl}')"></div>
-                        <h3>${post.title}</h3>
-                        <p class="meta">${post.meta}</p>
-                        <p class="excerpt">${post.excerpt}</p>
-                    </div>
-                </a>
-            `;
-        }
-        
-        blogGrid.appendChild(postElement);
-    });
+            // Create different layouts based on the current layout
+            const layout = localStorage.getItem('blogLayout') || 'grid';
+            
+            if (layout === 'grid') {
+                postElement.innerHTML = `
+                    <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
+                        <div class="post-content">
+                            <h3>${post.title}</h3>
+                            <p class="meta">${post.meta}</p>
+                            <p class="excerpt">${post.excerpt}</p>
+                        </div>
+                    </a>
+                `;
+            } else if (layout === 'card') {
+                postElement.innerHTML = `
+                    <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
+                        <div class="post-image" style="background-image: url('${post.imageUrl}')"></div>
+                        <div class="post-content">
+                            <h3>${post.title}</h3>
+                            <p class="meta">${post.meta}</p>
+                            <p class="excerpt">${post.excerpt}</p>
+                        </div>
+                    </a>
+                `;
+            } else if (layout === 'list') {
+                postElement.innerHTML = `
+                    <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
+                        <div class="post-content">
+                            <div class="post-image" style="background-image: url('${post.imageUrl}')"></div>
+                            <h3>${post.title}</h3>
+                            <p class="meta">${post.meta}</p>
+                            <p class="excerpt">${post.excerpt}</p>
+                        </div>
+                    </a>
+                `;
+            }
+            
+            blogGrid.appendChild(postElement);
+        });
 
-    // Apply the current layout
-    const currentLayout = localStorage.getItem('blogLayout') || 'grid';
-    switchLayout(currentLayout);
+        // Apply the current layout
+        const currentLayout = localStorage.getItem('blogLayout') || 'grid';
+        switchLayout(currentLayout);
+    } catch (error) {
+        console.error('Error loading blog posts:', error);
+    }
 }
+
+// Initialize blog posts when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    loadBlogPosts();
+});
 
 // Function to switch layouts
 function switchLayout(layout) {
     const blogGrid = document.querySelector('.blog-grid');
+    if (!blogGrid) return;
     const layoutButtons = document.querySelectorAll('.layout-button');
     
     // Remove all layout classes
