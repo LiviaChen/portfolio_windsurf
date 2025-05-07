@@ -17,7 +17,8 @@ async function loadBlogPosts() {
 
     // Fetch and parse each blog post
     const posts = await Promise.all(filenames.map(async filename => {
-        const response = await fetch(`/blog/posts/${filename}`);
+        // Update path for GitHub Pages
+        const response = await fetch(`/portfolio_windsurf/blog/posts/${filename}`);
         const text = await response.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(text, 'text/html');
@@ -57,7 +58,7 @@ async function loadBlogPosts() {
         
         if (layout === 'grid') {
             postElement.innerHTML = `
-                <a href="/blog/posts/${post.filename}" class="post-link">
+                <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
                     <div class="post-content">
                         <h3>${post.title}</h3>
                         <p class="meta">${post.meta}</p>
@@ -67,7 +68,7 @@ async function loadBlogPosts() {
             `;
         } else if (layout === 'card') {
             postElement.innerHTML = `
-                <a href="/blog/posts/${post.filename}" class="post-link">
+                <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
                     <div class="post-image" style="background-image: url('${imageUrl}')"></div>
                     <div class="post-content">
                         <h3>${post.title}</h3>
@@ -78,7 +79,7 @@ async function loadBlogPosts() {
             `;
         } else if (layout === 'list') {
             postElement.innerHTML = `
-                <a href="/blog/posts/${post.filename}" class="post-link">
+                <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
                     <div class="post-content">
                         <div class="post-image" style="background-image: url('${imageUrl}')"></div>
                         <h3>${post.title}</h3>

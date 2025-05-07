@@ -2,7 +2,7 @@
 
 A modern, responsive portfolio website with a blog section built using HTML, CSS, and JavaScript.
 
-current site at : https://liviachen.github.io/portfolio_windsurf/
+current site at : [Avid Data](https://liviachen.github.io/portfolio_windsurf/)
 
 ## Features
 
