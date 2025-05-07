@@ -2,6 +2,8 @@
 
 A modern, responsive portfolio website with a blog section built using HTML, CSS, and JavaScript.
 
+current site at : https://liviachen.github.io/portfolio_windsurf/
+
 ## Features
 
 - Clean and minimalist design
