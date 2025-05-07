@@ -3,22 +3,33 @@ async function loadBlogPosts() {
     const blogGrid = document.querySelector('.blog-grid');
     if (!blogGrid) return;
 
-    // Get all HTML files in the blog/posts directory
-    const response = await fetch('/blog/posts/');
-    const text = await response.text();
-    
-    // Extract blog post filenames from the directory listing
-    const filenames = text.match(/href="(.*\.html)"/g)
-        .map(match => match.replace('href="', '').replace('"', ''))
-        .filter(file => {
-            // Ignore index.html and any files in the templates directory
-            return file !== 'index.html' && !file.includes('templates');
-        });
+    // List of blog posts (we need to manually specify them for GitHub Pages)
+    const blogPosts = [
+        {
+            filename: 'my-tech-journey.html',
+            title: 'My Tech Journey',
+            meta: 'Posted on May 6, 2025 - Tech',
+            excerpt: 'My journey into the world of technology began when I first started exploring programming...'
+        },
+        {
+            filename: 'life-in-japan.html',
+            title: 'Life in Japan',
+            meta: 'Posted on May 15, 2025 - Life',
+            excerpt: 'My journey in Japan has been a fascinating blend of ancient traditions and modern innovations...'
+        }
+    ];
+
+    // Sort posts by date (extracted from meta string)
+    blogPosts.sort((a, b) => {
+        const dateA = new Date(a.meta.split(' - ')[0]);
+        const dateB = new Date(b.meta.split(' - ')[0]);
+        return dateB - dateA; // Newest first
+    });
 
     // Fetch and parse each blog post
-    const posts = await Promise.all(filenames.map(async filename => {
+    const posts = await Promise.all(blogPosts.map(async post => {
         // Update path for GitHub Pages
-        const response = await fetch(`/portfolio_windsurf/blog/posts/${filename}`);
+        const response = await fetch(`/portfolio_windsurf/blog/posts/${post.filename}`);
         const text = await response.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(text, 'text/html');
