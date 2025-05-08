@@ -25,6 +25,13 @@ async function loadBlogPosts() {
                 meta: 'Posted on May 15, 2025 - Life',
                 excerpt: 'My journey in Japan has been a fascinating blend of ancient traditions and modern innovations...',
                 imageUrl: '/portfolio_windsurf/images/japan-header.jpg'
+            },
+            {
+                filename: 'ml-workthrough.html',
+                title: 'ML Workthrough',
+                meta: 'Posted on May 7, 2025 - Machine Learning',
+                excerpt: 'A comprehensive guide to machine learning concepts and practical implementations...',
+                imageUrl: '/portfolio_windsurf/images/ml-header.jpg'
             }
         ];
 
