@@ -42,48 +42,19 @@ async function loadBlogPosts() {
             return dateB - dateA; // Newest first
         });
 
-        // Create blog post cards
+        // Create blog post cards using grid layout
         blogPosts.forEach(post => {
             const postElement = document.createElement('div');
             postElement.className = 'blog-post';
-
-            // Create different layouts based on the current layout
-            const layout = localStorage.getItem('blogLayout') || 'grid';
-            
-            if (layout === 'grid') {
-                postElement.innerHTML = `
-                    <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
-                        <div class="post-content">
-                            <h3>${post.title}</h3>
-                            <p class="meta">${post.meta}</p>
-                            <p class="excerpt">${post.excerpt}</p>
-                        </div>
-                    </a>
-                `;
-            } else if (layout === 'card') {
-                postElement.innerHTML = `
-                    <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
-                        <div class="post-image" style="background-image: url('${post.imageUrl}')"></div>
-                        <div class="post-content">
-                            <h3>${post.title}</h3>
-                            <p class="meta">${post.meta}</p>
-                            <p class="excerpt">${post.excerpt}</p>
-                        </div>
-                    </a>
-                `;
-            } else if (layout === 'list') {
-                postElement.innerHTML = `
-                    <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
-                        <div class="post-content">
-                            <div class="post-image" style="background-image: url('${post.imageUrl}')"></div>
-                            <h3>${post.title}</h3>
-                            <p class="meta">${post.meta}</p>
-                            <p class="excerpt">${post.excerpt}</p>
-                        </div>
-                    </a>
-                `;
-            }
-            
+            postElement.innerHTML = `
+                <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
+                    <div class="post-content">
+                        <h3>${post.title}</h3>
+                        <p class="meta">${post.meta}</p>
+                        <p class="excerpt">${post.excerpt}</p>
+                    </div>
+                </a>
+            `;
             blogGrid.appendChild(postElement);
         });
 

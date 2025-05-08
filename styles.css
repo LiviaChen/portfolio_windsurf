@@ -133,6 +133,7 @@ h2 {
     border-radius: 15px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
 }
 
 .blog-post:hover {
@@ -146,14 +147,18 @@ h2 {
     text-decoration: none;
     padding: 2rem;
     transition: color 0.3s ease;
+    height: 100%;
 }
 
 .post-link:hover {
-    color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 .post-content {
-    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .post-content h3 {
