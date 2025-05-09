@@ -32,6 +32,13 @@ async function loadBlogPosts() {
                 meta: 'Posted on May 7, 2025 - Machine Learning',
                 excerpt: 'A comprehensive guide to machine learning concepts and practical implementations...',
                 imageUrl: '/portfolio_windsurf/images/ml-header.jpg'
+            },
+            {
+                filename: 'how-public-speaking-shape-me.html',
+                title: 'How Public Speaking Shape Me',
+                meta: 'Posted on May 15, 2025 - Life',
+                excerpt: 'Actually what I am trying to say is ToastMaster journey...',
+                //imageUrl: '/portfolio_windsurf/images/toastmaster-header.jpg'
             }
         ];
 
