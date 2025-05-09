@@ -59,7 +59,7 @@ async function loadBlogPosts() {
             
             if (layout === 'grid') {
                 postElement.innerHTML = `
-                    <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
+                    <a href="/blog/posts/${post.filename}" class="post-link">
                         <div class="post-content">
                             <h3>${post.title}</h3>
                             <p class="meta">${post.meta}</p>
@@ -69,7 +69,7 @@ async function loadBlogPosts() {
                 `;
             } else if (layout === 'card') {
                 postElement.innerHTML = `
-                    <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
+                    <a href="/blog/posts/${post.filename}" class="post-link">
                         <div class="post-image" style="background-image: url('${post.imageUrl}')"></div>
                         <div class="post-content">
                             <h3>${post.title}</h3>
@@ -80,7 +80,7 @@ async function loadBlogPosts() {
                 `;
             } else if (layout === 'list') {
                 postElement.innerHTML = `
-                    <a href="/portfolio_windsurf/blog/posts/${post.filename}" class="post-link">
+                    <a href="/blog/posts/${post.filename}" class="post-link">
                         <div class="post-content">
                             <div class="post-image" style="background-image: url('${post.imageUrl}')"></div>
                             <h3>${post.title}</h3>
